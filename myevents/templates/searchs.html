@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<br/>
+{% if searching %}
+<h1>Searched: {{ searching }}</h1>
+
+{% else %}
+<h1>You need to write something.</h1>
+
+{% endif %}
+<br/>
+<br/>
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<br/>
+<h1> {{ wday }} {{ today }}, {{ month }}</h1>
+<br/>
+<br/>
+{% if submitted %}
+
+<h1>Your form was submitted correctly!</h1>
+<p>Submitted time: {{ time_now }}</p>
+
+{% else %}
+<form action="" method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+<br/>
+    <button type="submit">Add</button>
+</form>
+{% endif %}
+{% endblock %}

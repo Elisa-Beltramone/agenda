@@ -4,7 +4,7 @@ class Venue(models.Model):
     name_venue = models.CharField('Venue name', max_length=120)
     address = models.CharField(max_length=200)
     zip_code = models.CharField(max_length=15)
-    phone = models.CharField('Contact Phone', max_length=12)
+    phone = models.CharField('Contact Phone', max_length=12, blank=True)
 
     def __str__(self):
         return self.name_venue
