@@ -22,7 +22,7 @@
             </ul>
             <div class="card-body">
                 <a href="{% url 'show_event' event.id %}" class="card-link">More</a>
-                <a href="#" class="card-link">Join</a>
+                <a href="{% url 'show_event' event.id %}" class="card-link">Join</a>
             </div>
         </div>
     </div>

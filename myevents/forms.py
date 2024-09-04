@@ -7,7 +7,10 @@ from .models import Venue, Event
 #         model = Venue
 #         fields = ('name_venue', 'address', 'zip_code', 'phone')
 
-class VenueForm(ModelForm):
+class EventForm(ModelForm):
     class Meta:
         model = Event
         fields = ('name_event', 'date_event', 'venue_event', 'description')
+        widgets = {
+            # 'date_event' : 
+        }
