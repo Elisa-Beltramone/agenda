@@ -31,7 +31,6 @@ def add_event(request):
         form = VenueForm(request.POST)
         if form.is_valid():
             form.save()
-            time_now = datetime.now()
             return HttpResponseRedirect('/add_event?submitted=True')
     else:
         form = VenueForm
@@ -43,7 +42,6 @@ def add_event(request):
         'month':month, 
         'form':form,
         'submitted':submitted,
-        'time_now':time_now
         })
 
 def show_event(request, event_id):
@@ -53,6 +51,7 @@ def show_event(request, event_id):
 def searched(request):
     if request.method == "POST":
         searching = request.POST['searching']
-        return render(request, 'searchs.html', {'searching':searching})
+        events = Event.objects.filter(name_event__contains=searching)
+        return render(request, 'searchs.html', {'searching':searching, 'events':events})
     else:
         return render(request, 'searchs.html', {})
