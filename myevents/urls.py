@@ -9,4 +9,5 @@ urlpatterns = [
     path('show_event/<event_id>', views.show_event, name="show_event"),
     path('search/', views.searched, name="search"),
     path('update_event/<event_id>', views.update_event, name="update_event"),
+    path('delete_event/<event_id>', views.delete_event, name="delete_event"),
 ]

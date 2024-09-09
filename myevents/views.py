@@ -19,7 +19,7 @@ def home(request, year=datetime.now().year, month=datetime.now().strftime('%B'))
     })
 
 def planner(request):
-    event_list = Event.objects.all()
+    event_list = Event.objects.all().order_by('date_event')
     return render(request, 'myPlanner.html', {'event_list':event_list})
 
 def add_event(request):
@@ -65,3 +65,7 @@ def update_event(request, event_id):
     else:
         return render(request, 'update_event.html', {'event':event, 'form':form})
 
+def delete_event(request, event_id):
+        event = Event.objects.get(pk=event_id)
+        event.delete()
+        return redirect('planner')
