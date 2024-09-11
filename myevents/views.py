@@ -2,9 +2,10 @@ from django.shortcuts import render, redirect
 import calendar
 from calendar import HTMLCalendar
 from datetime import datetime
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from .models import Event
 from .forms import EventForm
+from django.core.paginator import Paginator
 
 def home(request, year=datetime.now().year, month=datetime.now().strftime('%B')):
     today = datetime.now().day
@@ -20,7 +21,10 @@ def home(request, year=datetime.now().year, month=datetime.now().strftime('%B'))
 
 def planner(request):
     event_list = Event.objects.all().order_by('date_event')
-    return render(request, 'myPlanner.html', {'event_list':event_list})
+    p = Paginator(Event.objects.all(), 3)
+    page = request.GET.get('page')
+    events = p.get_page(page)
+    return render(request, 'myPlanner.html', {'event_list':event_list, 'events':events})
 
 def add_event(request):
     today = datetime.now().day
@@ -69,3 +73,16 @@ def delete_event(request, event_id):
         event = Event.objects.get(pk=event_id)
         event.delete()
         return redirect('planner')
+
+def my_agenda(request):
+    return render(request, 'myAgenda.html', {})
+
+def event_text(request):
+    response = HttpResponse(content_type='text/plain')
+    response['Content-Disposition'] = 'attachment; filename=Events.txt'
+    lines = ["My agenda\n\n\n\n"]
+    events = Event.objects.all()
+    for event in events:
+        lines.append(f'{event}\n\n')
+    response.writelines(lines)
+    return response

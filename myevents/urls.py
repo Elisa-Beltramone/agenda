@@ -10,4 +10,6 @@ urlpatterns = [
     path('search/', views.searched, name="search"),
     path('update_event/<event_id>', views.update_event, name="update_event"),
     path('delete_event/<event_id>', views.delete_event, name="delete_event"),
+    path('my_agenda/', views.my_agenda, name="agenda"),
+    path('event_text', views.event_text, name="event_text")
 ]
